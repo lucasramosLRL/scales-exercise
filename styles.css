@@ -1,0 +1,28 @@
+:root {
+  --main-bg: linear-gradient( #2CA0E3, #18587D);
+  --secondary-bg: linear-gradient( #00629A, #003858);
+  --main-text: linear-gradient( #D3B400, #9F8801);
+  --text-stroke: #003858;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background: var(--main-bg);
+}
+
+header {
+  height: 12vh;
+  background: var(--secondary-bg);
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+  background: var(--main-text);
+
+  /* -webkit-text-stroke: 0.05em var(--text-stroke); */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
