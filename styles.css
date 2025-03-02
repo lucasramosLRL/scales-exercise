@@ -6,10 +6,10 @@
 }
 
 body {
+  font-family: 'Montserrat', sans-serif;
   height: 100vh;
   width: 100vw;
   background: var(--main-bg);
-  font-family: "Arial";
   margin: 0;
 }
 
@@ -136,7 +136,7 @@ li {
   border-radius: 25px;
   background: var(--secondary-bg);
   color: var(--main-text);
-  font-weight: 500;
+  font-weight: 600;
   margin: 0.5em;
 }
 
