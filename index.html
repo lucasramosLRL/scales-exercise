@@ -9,42 +9,48 @@
 </head>
 <body>
   <header>
-    <h1>Velocidade (Segundos)</h1>
-    <div class="seconds-selector" style="display: flex; justify-content: center; padding: 0.4em">
-      <button id="decrease">-</button>
-      <input id="seconds" type="number" min="1" max="30" value="5"></input>
-      <button id="increase">+</button>
+    <h1 class="title">Velocidade (Segundos)</h1>
+    <div class="seconds-container">
+      <button class="transparent" id="decrease">-</button>
+      <input id="seconds" type="number" min="1" max="10" value="5" readonly></input>
+      <button class="transparent" id="increase">+</button>
     </div>
     
   </header>
   <main>
-    <h1>Memorização das escalas diatônicas maiores</h1>
-    <h2>Ciclos de quintas</h2>
-    <ul>
-      <li>C</li>
-      <li>G</li>
-      <li>D</li>
-      <li>A</li>
-      <li>E</li>
-      <li>B</li>
-      <li>F#</li>
-    </ul>
+    <h1 class="title">Memorização das escalas diatônicas maiores</h1>
+    
+    <div class="cicle-container">
+      <h2 class="sub-title">Ciclos de quintas</h2>
+      <ul>
+        <li>C</li>
+        <li>G</li>
+        <li>D</li>
+        <li>A</li>
+        <li>E</li>
+        <li>B</li>
+        <li>F#</li>
+        <li>C#</li>
+      </ul>
+    </div>
 
-    <h2>Ciclos de quartas</h2>
-    <ul>
-      <li>F</li>
-      <li>Bb</li>
-      <li>Eb</li>
-      <li>Ab</li>
-      <li>Db</li>
-    </ul>
+    <div class="cicle-container">
+      <h2 class="sub-title">Ciclos de quartas</h2>
+      <ul>
+        <li>F</li>
+        <li>Bb</li>
+        <li>Eb</li>
+        <li>Ab</li>
+        <li>Db</li>
+        <li>Gb</li>
+        <li>Cb</li>
+      </ul>
+    </div>
 
-
-    <div>
-      <h2>Grau</h2>
-      <h1 class="grau">IV</h1>
-      <h1>-></h1>
-      <h1 id="contagem-resultado">5</h1>
+    <div class="exercise-container">
+      <h1 id="interval-display">IV</h1>
+      <h1>=</h1>
+      <h1 id="count-display">5</h1>
     </div>
 
     <Button id="start">Iniciar</Button>
