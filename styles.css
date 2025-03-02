@@ -101,13 +101,10 @@ button.transparent {
 }
 
 h1.title {
+  color: var(--main-text);
   font-size: 2em;
   font-weight: bold;
   text-align: center;
-  background-color: var(--main-text);
-  
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 h2.sub-title {
