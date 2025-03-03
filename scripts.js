@@ -4,10 +4,8 @@ const bpmDecrease = document.getElementById('decrease');
 const startbtn = document.getElementById('start');
 const intervalDisplay = document.getElementById('interval-display');
 const countDisplay = document.getElementById('count-display');
-const dropdown = document.getElementById('dropdown');
 const circlesContainer = document.getElementById('cicles-container');
-
-let ciclesVisible = true;
+const scaleNameDisplay = document.getElementById('scale-name');
 
 let countdown = null;
 let isPlaying = false;
@@ -60,35 +58,29 @@ bpmIncrease.addEventListener('click', () => {
   stopExercise();
 });
 
-dropdown.addEventListener('click', () => {
-  console.log("click")
+const toggleScales = () => {
   circlesContainer.classList.toggle("hidden");
-  
-  if(ciclesVisible){
-    ciclesVisible = false;
-    dropdown.innerHTML = "Mostrar escalas";
-  }else{
-    ciclesVisible = true;
-    dropdown.innerHTML = "Ocultar escalas";
-  }
-});
+};
 
 startbtn.addEventListener('click', () => {
   if(isPlaying){
     stopExercise();
     isPlaying = false;
-    dropdown.click();
+    toggleScales();
+    scaleNameDisplay.classList.toggle("hidden");
     return;
   }
 
   const selectedNote = getSelectedNote();
+  countDisplay.innerHTML = seconds.value;
 
   if (!selectedNote) {
     console.log("Nenhuma nota selecionada.");
     return;
   }
 
-  dropdown.click();
+  toggleScales();
+  scaleNameDisplay.classList.toggle("hidden");
 
   startbtn.innerHTML = "Parar";
     
@@ -106,11 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
           // Remove a classe 'selected' de todos os itens
           listItems.forEach(li => li.classList.remove("selected"));
 
-          if(isPlaying)
-            stopExercise();
-
           // Adiciona a classe 'selected' no item clicado
           item.classList.add("selected");
+
+          // Edita o nome da escala
+          scaleNameDisplay.innerHTML = `Escala de ${item.textContent}`;
       });
   });
 });
