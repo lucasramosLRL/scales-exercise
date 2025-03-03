@@ -8,6 +8,7 @@ const circlesContainer = document.getElementById('cicles-container');
 const scaleNameDisplay = document.getElementById('scale-name');
 
 let countdown = null;
+let timeout = null;
 let isPlaying = false;
 
 const scales = {
@@ -115,6 +116,7 @@ function getSelectedNote() {
 
 const stopExercise = () => {
   clearInterval(countdown);
+  clearTimeout(timeout);
   countDisplay.innerHTML = seconds.value;
 
   startbtn.innerHTML= "Iniciar";
@@ -143,7 +145,7 @@ const exercise = (selectedNote) => {
 
     countDisplay.innerHTML = scales[selectedNote][currentInterval - 1];
 
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       countDisplay.innerHTML = seconds.value;
       countdown = setInterval(countdownInterval, 1000);
 
