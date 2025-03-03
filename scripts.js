@@ -4,9 +4,13 @@ const bpmDecrease = document.getElementById('decrease');
 const startbtn = document.getElementById('start');
 const intervalDisplay = document.getElementById('interval-display');
 const countDisplay = document.getElementById('count-display');
+const dropdown = document.getElementById('dropdown');
+const circlesContainer = document.getElementById('cicles-container');
+
+let ciclesVisible = true;
 
 let countdown = null;
-let isplaying = false;
+let isPlaying = false;
 
 const scales = {
   'C': ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
@@ -56,15 +60,42 @@ bpmIncrease.addEventListener('click', () => {
   stopExercise();
 });
 
+dropdown.addEventListener('click', () => {
+  console.log("click")
+  circlesContainer.classList.toggle("hidden");
+  
+  if(ciclesVisible){
+    ciclesVisible = false;
+    dropdown.innerHTML = "Mostrar escalas";
+  }else{
+    ciclesVisible = true;
+    dropdown.innerHTML = "Ocultar escalas";
+  }
+});
 
 startbtn.addEventListener('click', () => {
-  if(isplaying){
+  if(isPlaying){
     stopExercise();
-    isplaying = false;
-  }else{
-    startExercise();
-    isplaying = true;
+    isPlaying = false;
+    dropdown.click();
+    return;
   }
+
+  const selectedNote = getSelectedNote();
+
+  if (!selectedNote) {
+    console.log("Nenhuma nota selecionada.");
+    return;
+  }
+
+  dropdown.click();
+
+  startbtn.innerHTML = "Parar";
+    
+  exercise(selectedNote);
+
+  isPlaying = true;
+
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -75,7 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
           // Remove a classe 'selected' de todos os itens
           listItems.forEach(li => li.classList.remove("selected"));
 
-          stopExercise();
+          if(isPlaying)
+            stopExercise();
 
           // Adiciona a classe 'selected' no item clicado
           item.classList.add("selected");
@@ -87,21 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function getSelectedNote() {
   const selectedItem = document.querySelector("ul li.selected");
   return selectedItem ? selectedItem.textContent : null;
-}
-
-const startExercise = () => {
-  const selectedNote = getSelectedNote();
-
-  if (selectedNote) {
-    startbtn.innerHTML = "Parar";
-    
-    exercise(selectedNote);
-
-  } else {
-    console.log("Nenhuma nota selecionada.");
-    return;
-  }
-  
 }
 
 const stopExercise = () => {
@@ -129,7 +146,7 @@ const exercise = (selectedNote) => {
   intervalDisplay.innerHTML = romansMap[currentInterval];
 
   const showNote = () => {
-    if(!isplaying)
+    if(!isPlaying)
       return;
 
     countDisplay.innerHTML = scales[selectedNote][currentInterval - 1];
@@ -148,9 +165,8 @@ const exercise = (selectedNote) => {
 
   }
 
-
   const countdownInterval = () => {
-    if(!isplaying)
+    if(!isPlaying)
       return;
 
     countDisplay.innerHTML = parseInt(countDisplay.innerHTML) - 1;
