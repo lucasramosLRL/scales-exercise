@@ -18,9 +18,7 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.3em;
-  height: 11vh;
-  padding: 0.5em;
+  gap: 1.1em;
   background: var(--secondary-bg);
 }
 
@@ -30,6 +28,7 @@ main {
   justify-content: center;
   align-items: center;
   gap: 3em;
+  margin: 1em;
 }
 
 .seconds-container {
@@ -160,9 +159,6 @@ li.selected {
   gap: 0.5em;
   font-size: 8em;
   font-weight: bold;
-  text-align: center;
-  height: 1.1em;
-
   color: var(--main-text);
 }
 
@@ -172,7 +168,7 @@ li.selected {
   }
 
   h1.title {
-    font-size: 1.8em;
+    font-size: 1.3em;
   }
 
   h2.sub-title {
@@ -194,15 +190,19 @@ li.selected {
     padding: 0;
   }
 
-  button#start {
+  button {
     font-size: 1.6em;
     padding: 0.2em 0.6em;
+  }
+
+  button.transparent {
+    font-size: 2em;
   }
 }
 
 @media (max-width: 480px) {
-  h1.title {
-    font-size: 1.5em;
+  main {
+    gap: 0.8em;
   }
 
   h2.sub-title {
@@ -215,8 +215,13 @@ li.selected {
     flex-wrap: wrap;
   }
 
-  button#start {
+  button {
     font-size: 1.4em;
     padding: 0.2em 0.5em;
+  }
+
+  .exercise-container {
+    gap: 0.2em;
+    font-size: 6em;
   }
 }
