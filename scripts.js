@@ -45,8 +45,6 @@ bpmDecrease.addEventListener('click', () => {
   
   seconds.value = parseInt(seconds.value) - 1;
   countDisplay.innerHTML = seconds.value;
-
-  stopExercise();
 });
 
 bpmIncrease.addEventListener('click', () => {
@@ -55,8 +53,6 @@ bpmIncrease.addEventListener('click', () => {
   
   seconds.value = parseInt(seconds.value) + 1;
   countDisplay.innerHTML = seconds.value;
-  
-  stopExercise();
 });
 
 const toggleScales = () => {
