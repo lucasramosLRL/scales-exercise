@@ -59,22 +59,17 @@ bpmIncrease.addEventListener('click', () => {
   progress = seconds.value;
 });
 
-card.addEventListener('click', () => {
-  if(cardFlipped){
-    cardFlipped = false;
-  }else{
-    cardFlipped = true;
-  }
-
-  card.classList.toggle('flipped');
-});
-
 startbtn.addEventListener('click', () => {
   if(isPlaying){
     stopExercise();
     isPlaying = false;
     toggleScales();
     scaleNameDisplay.classList.toggle("hidden");
+    progressBar.classList.toggle("hidden");
+
+    if(cardFlipped)
+      card.classList.toggle('flipped');
+    
     return;
   }
 
@@ -88,6 +83,7 @@ startbtn.addEventListener('click', () => {
 
   toggleScales();
   scaleNameDisplay.classList.toggle("hidden");
+  progressBar.classList.toggle("hidden");
 
   startbtn.innerHTML = "Parar";
     
@@ -158,6 +154,8 @@ const exercise = (selectedNote) => {
     if(!isPlaying)
       return;
 
+    clearInterval(countdown);
+
     noteDisplay.innerHTML = scales[selectedNote][currentInterval - 1];
     card.classList.toggle('flipped');
     cardFlipped = true;
@@ -187,10 +185,11 @@ const exercise = (selectedNote) => {
     progress = progress - 1;
     updateProgressBar(progress);
     if(progress < 0){
-      clearInterval(countdown);
       flipCard();
     }
   }
 
   countdown = setInterval(countdownInterval, 1000);
+
+  card.addEventListener('click', flipCard);
 }
