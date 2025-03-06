@@ -4,12 +4,15 @@ const bpmDecrease = document.getElementById('decrease');
 const startbtn = document.getElementById('start');
 const intervalDisplay = document.getElementById('interval-display');
 const countDisplay = document.getElementById('count-display');
+const noteDisplay = document.getElementById('note-display');
+const card = document.querySelector('.card');
 const circlesContainer = document.getElementById('cicles-container');
 const scaleNameDisplay = document.getElementById('scale-name');
 
 let countdown = null;
 let timeout = null;
 let isPlaying = false;
+let cardFlipped = false;
 
 const scales = {
   'C': ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
@@ -55,9 +58,15 @@ bpmIncrease.addEventListener('click', () => {
   countDisplay.innerHTML = seconds.value;
 });
 
-const toggleScales = () => {
-  circlesContainer.classList.toggle("hidden");
-};
+card.addEventListener('click', () => {
+  if(cardFlipped){
+    cardFlipped = false;
+  }else{
+    cardFlipped = true;
+  }
+
+  card.classList.toggle('flipped');
+});
 
 startbtn.addEventListener('click', () => {
   if(isPlaying){
@@ -104,6 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const toggleScales = () => {
+  circlesContainer.classList.toggle("hidden");
+};
+
 // Função para obter o item selecionado
 function getSelectedNote() {
   const selectedItem = document.querySelector("ul li.selected");
@@ -134,12 +147,15 @@ const exercise = (selectedNote) => {
   let sequence = generateUniqueSequence();
   let currentInterval = sequence.shift();
   intervalDisplay.innerHTML = romansMap[currentInterval];
+  noteDisplay.innerHTML = scales[selectedNote][currentInterval - 1];
 
-  const showNote = () => {
+  const flipCard = () => {
     if(!isPlaying)
       return;
 
-    countDisplay.innerHTML = scales[selectedNote][currentInterval - 1];
+    noteDisplay.innerHTML = scales[selectedNote][currentInterval - 1];
+    card.classList.toggle('flipped');
+    cardFlipped = true;
 
     timeout = setTimeout(() => {
       countDisplay.innerHTML = seconds.value;
@@ -149,6 +165,9 @@ const exercise = (selectedNote) => {
         sequence = generateUniqueSequence();
       }
 
+      card.classList.toggle('flipped');
+      cardFlipped = false;
+      
       currentInterval = sequence.shift();
       intervalDisplay.innerHTML = romansMap[currentInterval];
     }, 2000);
@@ -160,9 +179,9 @@ const exercise = (selectedNote) => {
       return;
 
     countDisplay.innerHTML = parseInt(countDisplay.innerHTML) - 1;
-    if(parseInt(countDisplay.innerHTML) < 0){
+    if(parseInt(countDisplay.innerHTML) < 1){
       clearInterval(countdown);
-      showNote();
+      flipCard();
     }
   }
 
