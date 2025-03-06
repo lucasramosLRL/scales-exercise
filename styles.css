@@ -194,6 +194,24 @@ li.selected {
   transform: rotateY(180deg);
 }
 
+.progress-container {
+  width: 18em;
+  text-align: center;
+}
+
+.progress {
+  padding: 0.3em;
+  border-radius: 30px;
+}
+
+#progress-bar {
+  height: 0.4em;
+  border-radius: 30px;
+  transition: 1s linear;
+  transition-property: width, background-color;
+  background-color: var(--main-text);
+}
+
 @media (max-width: 768px) {
   main {
     gap: 2em;

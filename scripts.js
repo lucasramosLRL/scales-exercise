@@ -3,9 +3,9 @@ const bpmIncrease = document.getElementById('increase');
 const bpmDecrease = document.getElementById('decrease');
 const startbtn = document.getElementById('start');
 const intervalDisplay = document.getElementById('interval-display');
-const countDisplay = document.getElementById('count-display');
 const noteDisplay = document.getElementById('note-display');
 const card = document.querySelector('.card');
+const progressBar = document.getElementById('progress-bar');
 const circlesContainer = document.getElementById('cicles-container');
 const scaleNameDisplay = document.getElementById('scale-name');
 
@@ -13,6 +13,7 @@ let countdown = null;
 let timeout = null;
 let isPlaying = false;
 let cardFlipped = false;
+let progress = seconds.value;
 
 const scales = {
   'C': ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
@@ -47,7 +48,7 @@ bpmDecrease.addEventListener('click', () => {
     return;
   
   seconds.value = parseInt(seconds.value) - 1;
-  countDisplay.innerHTML = seconds.value;
+  progress = seconds.value;
 });
 
 bpmIncrease.addEventListener('click', () => {
@@ -55,7 +56,7 @@ bpmIncrease.addEventListener('click', () => {
     return;
   
   seconds.value = parseInt(seconds.value) + 1;
-  countDisplay.innerHTML = seconds.value;
+  progress = seconds.value;
 });
 
 card.addEventListener('click', () => {
@@ -78,7 +79,7 @@ startbtn.addEventListener('click', () => {
   }
 
   const selectedNote = getSelectedNote();
-  countDisplay.innerHTML = seconds.value;
+  progress = seconds.value;
 
   if (!selectedNote) {
     console.log("Nenhuma nota selecionada.");
@@ -126,7 +127,6 @@ function getSelectedNote() {
 const stopExercise = () => {
   clearInterval(countdown);
   clearTimeout(timeout);
-  countDisplay.innerHTML = seconds.value;
 
   startbtn.innerHTML= "Iniciar";
 
@@ -143,11 +143,16 @@ const generateUniqueSequence = () => {
   return sequence;
 }
 
+const updateProgressBar = (currentValue) => {
+  progressBar.style.width = `${(currentValue / seconds.value) * 100}%`;
+}
+
 const exercise = (selectedNote) => {
   let sequence = generateUniqueSequence();
   let currentInterval = sequence.shift();
   intervalDisplay.innerHTML = romansMap[currentInterval];
   noteDisplay.innerHTML = scales[selectedNote][currentInterval - 1];
+  updateProgressBar(progress);
 
   const flipCard = () => {
     if(!isPlaying)
@@ -158,7 +163,8 @@ const exercise = (selectedNote) => {
     cardFlipped = true;
 
     timeout = setTimeout(() => {
-      countDisplay.innerHTML = seconds.value;
+      progress = seconds.value;
+      updateProgressBar(progress);
       countdown = setInterval(countdownInterval, 1000);
 
       if(sequence.length <= 0){
@@ -178,8 +184,9 @@ const exercise = (selectedNote) => {
     if(!isPlaying)
       return;
 
-    countDisplay.innerHTML = parseInt(countDisplay.innerHTML) - 1;
-    if(parseInt(countDisplay.innerHTML) < 1){
+    progress = progress - 1;
+    updateProgressBar(progress);
+    if(progress < 0){
       clearInterval(countdown);
       flipCard();
     }
