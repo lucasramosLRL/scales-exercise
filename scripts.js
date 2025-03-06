@@ -151,7 +151,10 @@ const exercise = (selectedNote) => {
   updateProgressBar(progress);
 
   const flipCard = () => {
-    if(!isPlaying)
+    if(!isPlaying) // Se não está rodando, não faz nada
+      return;
+
+    if(cardFlipped) // Se já está mostrando a face da carta, não faz nada
       return;
 
     clearInterval(countdown);
