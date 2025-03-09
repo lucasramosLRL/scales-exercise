@@ -67,8 +67,10 @@ startbtn.addEventListener('click', () => {
     scaleNameDisplay.classList.toggle("hidden");
     progressBar.classList.toggle("hidden");
 
-    if(cardFlipped)
+    if(cardFlipped){
       card.classList.toggle('flipped');
+      cardFlipped = false;
+    }
     
     return;
   }
