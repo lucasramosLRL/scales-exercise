@@ -9,6 +9,7 @@ const progressBar = document.getElementById('progress-bar');
 const circlesContainer = document.getElementById('cicles-container');
 const scaleNameDisplay = document.getElementById('scale-name');
 
+let selectedNote = null;
 let countdown = null;
 let timeout = null;
 let isPlaying = false;
@@ -75,11 +76,10 @@ startbtn.addEventListener('click', () => {
     return;
   }
 
-  const selectedNote = getSelectedNote();
   progress = seconds.value;
 
   if (!selectedNote) {
-    console.log("Nenhuma nota selecionada.");
+    alert("Selecione uma nota raiz antes de começar!");
     return;
   }
 
@@ -89,7 +89,7 @@ startbtn.addEventListener('click', () => {
 
   startbtn.innerHTML = "Parar";
     
-  exercise(selectedNote);
+  exercise();
 
   isPlaying = true;
 
@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Edita o nome da escala
           scaleNameDisplay.innerHTML = `Escala de ${item.textContent}`;
+          selectedNote = item.textContent;
       });
   });
 });
@@ -115,12 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
 const toggleScales = () => {
   circlesContainer.classList.toggle("hidden");
 };
-
-// Função para obter o item selecionado
-function getSelectedNote() {
-  const selectedItem = document.querySelector("ul li.selected");
-  return selectedItem ? selectedItem.textContent : null;
-}
 
 const stopExercise = () => {
   clearInterval(countdown);
@@ -145,7 +140,7 @@ const updateProgressBar = (currentValue) => {
   progressBar.style.width = `${(currentValue / seconds.value) * 100}%`;
 }
 
-const exercise = (selectedNote) => {
+const exercise = () => {
   let sequence = generateUniqueSequence();
   let currentInterval = sequence.shift();
   intervalDisplay.innerHTML = romansMap[currentInterval];
